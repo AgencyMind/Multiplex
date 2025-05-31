@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ReactFlow, {
   Node,
   Edge,
@@ -22,6 +22,11 @@ import {
   ActivityStreamsBlock
 } from './blocks';
 import { NodeData } from '@/types/workflow';
+
+// PSEUDOCODE: Import hooks for real functionality
+// import { useWebSocket } from '@/hooks/useWebSocket';
+// import { useWorkflowSubmission } from '@/hooks/useWorkflowSubmission';
+// import { useActivityStream } from '@/hooks/useActivityStream';
 
 const nodeTypes = {
   intents: IntentsBlock,
@@ -150,6 +155,32 @@ const initialEdges: Edge[] = [
 export function WorkflowCanvas() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [selectedNodes, setSelectedNodes] = useState<string[]>([]);
+  
+  // PSEUDOCODE: WebSocket and workflow submission hooks
+  /*
+  const { 
+    connected, 
+    submitWorkflow: wsSubmitWorkflow,
+    activityStream,
+    getNodeActivity 
+  } = useWebSocket();
+  
+  const {
+    submitting,
+    workflowId,
+    progress,
+    submitWorkflow,
+    validateWorkflow
+  } = useWorkflowSubmission();
+  
+  const {
+    gpuStatus,
+    metrics,
+    getNodeMetrics,
+    getActivitySummary
+  } = useActivityStream();
+  */
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge({ ...params, animated: true }, eds)),
@@ -190,8 +221,81 @@ export function WorkflowCanvas() {
     [nodes, setNodes]
   );
 
+  // PSEUDOCODE: Handle workflow execution
+  /*
+  const handleExecuteWorkflow = async () => {
+    // Validate workflow structure
+    const validation = await validateWorkflow(nodes, edges);
+    if (!validation.valid) {
+      console.error('Workflow validation failed:', validation.errors);
+      return;
+    }
+    
+    // Submit workflow
+    try {
+      const workflowId = await submitWorkflow({
+        nodes,
+        edges,
+        metadata: {
+          name: 'Multiplex Demo Workflow',
+          priority: 'normal'
+        }
+      });
+      
+      console.log('Workflow submitted:', workflowId);
+    } catch (error) {
+      console.error('Failed to submit workflow:', error);
+    }
+  };
+  
+  // Update node statuses based on activity stream
+  useEffect(() => {
+    if (!activityStream) return;
+    
+    // Update node statuses based on workflow progress
+    const updatedNodes = nodes.map(node => {
+      const activity = getNodeActivity(node.id);
+      if (activity.length > 0) {
+        const latestStatus = activity[activity.length - 1];
+        return {
+          ...node,
+          data: {
+            ...node.data,
+            status: latestStatus.data.status,
+            progress: latestStatus.data.progress
+          }
+        };
+      }
+      return node;
+    });
+    
+    setNodes(updatedNodes);
+  }, [activityStream, nodes, getNodeActivity, setNodes]);
+  
+  // Show GPU status in activity stream nodes
+  useEffect(() => {
+    const activityNodes = nodes.filter(n => n.type === 'activitystreams');
+    
+    activityNodes.forEach(node => {
+      const summary = getActivitySummary();
+      setNodes(nds => nds.map(n => 
+        n.id === node.id 
+          ? {
+              ...n,
+              data: {
+                ...n.data,
+                metrics: summary.metrics,
+                headline: summary.headline
+              }
+            }
+          : n
+      ));
+    });
+  }, [gpuStatus, nodes, setNodes, getActivitySummary]);
+  */
+
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full relative">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -213,6 +317,37 @@ export function WorkflowCanvas() {
           className="!bg-[#141416] !border-[#252527]"
         />
       </ReactFlow>
+      
+      {/* PSEUDOCODE: Workflow execution button */}
+      {/*
+      <div className="absolute bottom-8 right-8 flex gap-4">
+        {connected ? (
+          <div className="px-3 py-1 bg-[#64ffda20] border border-[#64ffda60] rounded text-[#64ffda] text-sm">
+            Connected
+          </div>
+        ) : (
+          <div className="px-3 py-1 bg-[#ff572220] border border-[#ff572260] rounded text-[#ff5722] text-sm">
+            Disconnected
+          </div>
+        )}
+        
+        <button
+          onClick={handleExecuteWorkflow}
+          disabled={submitting || !connected}
+          className="px-6 py-2 bg-[#00e5ff] text-[#0a0a0b] rounded font-medium 
+                     hover:bg-[#00d4ff] transition-colors disabled:opacity-50 
+                     disabled:cursor-not-allowed"
+        >
+          {submitting ? 'Executing...' : 'Execute Workflow'}
+        </button>
+        
+        {workflowId && (
+          <div className="px-3 py-1 bg-[#9c88ff20] border border-[#9c88ff60] rounded text-[#9c88ff] text-sm">
+            ID: {workflowId} ({progress}%)
+          </div>
+        )}
+      </div>
+      */}
     </div>
   );
 }
