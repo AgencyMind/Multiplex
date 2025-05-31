@@ -49,12 +49,12 @@ coordination-server/dist/
 coordination-server/.env*
 coordination-server/logs/
 
-# GPU node configurations
-gpu-nodes/configs/
-gpu-nodes/ssh-keys/
-gpu-nodes/*.key
-gpu-nodes/*.pem
-gpu-nodes/machine-*.conf
+# GPU stack configurations
+gpustacks/configs/
+gpustacks/ssh-keys/
+gpustacks/*.key
+gpustacks/*.pem
+gpustacks/machine-*.conf
 
 # Sensitive configuration
 **/secrets/
