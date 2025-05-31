@@ -1,26 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0b;
+  --canvas: #0d0d0d;
+  --node-bg: #141416;
+  --node-bg-gradient: linear-gradient(135deg, #141416 0%, #1a1a1c 100%);
+  --node-border: #252527;
+  --dot-grid: #1a1a1a;
+  --electric-blue: #00e5ff;
+  --soft-cyan: #64ffda;
+  --coral: #ff5722;
+  --lavender: #9c88ff;
+  --amber: #ffc947;
+  --text-primary: #f8f9fa;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-foreground: var(--text-primary);
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', system-ui;
+  letter-spacing: -0.03em;
+}
+
+code, pre, .monospace {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* React Flow overrides */
+.react-flow__background {
+  background-color: var(--canvas);
+}
+
+.react-flow__controls {
+  background: var(--node-bg);
+  border: 1px solid var(--node-border);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+.react-flow__controls button {
+  background: var(--node-bg);
+  border-color: var(--node-border);
+  color: var(--text-muted);
+}
+
+.react-flow__controls button:hover {
+  background: #1a1a1c;
+  color: var(--text-primary);
+}
+
+/* Custom node shadows */
+.react-flow__node {
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
 }

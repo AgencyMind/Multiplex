@@ -31,9 +31,13 @@ export interface ActivityStream {
 
 export type NodeData = {
   label: string;
-  type: 'intent' | 'comp' | 'genArt';
+  type: 'intent' | 'comp' | 'genArt' | 'activity' | 'narration' | 'visual-narration';
   status?: Intent['status'];
   content?: string;
   url?: string;
   artifactType?: GenArt['type'];
+  subType?: string;
+  activities?: ActivityStream[];
+  imageUrl?: string;
+  prompt?: string;
 };
