@@ -1,4 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Aber Mono Font */
+@font-face {
+  font-family: 'Aber Mono';
+  src: url('/fonts/AberMono-Regular.woff2') format('woff2'),
+       url('/fonts/AberMono-Regular.woff') format('woff'),
+       url('/fonts/AberMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 :root {
@@ -67,4 +79,9 @@ code, pre, .monospace {
 /* Custom node shadows */
 .react-flow__node {
   filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+}
+
+/* Hide React Flow watermark */
+.react-flow__attribution {
+  display: none !important;
 }

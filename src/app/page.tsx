@@ -3,6 +3,7 @@
 import React from 'react';
 import { WorkflowCanvas } from '@/components/WorkflowCanvas';
 import { IconPalette } from '@/components/IconPalette';
+import { MultiplexLogo } from '@/components/MultiplexLogo';
 
 export default function Home() {
   return (
@@ -13,7 +14,8 @@ export default function Home() {
       </aside>
       
       {/* Full-width Canvas */}
-      <main className="flex-1 bg-[#0d0d0d]">
+      <main className="flex-1 bg-[#0d0d0d] relative">
+        <MultiplexLogo />
         <WorkflowCanvas />
       </main>
     </div>
