@@ -48,6 +48,11 @@ coordination-server/node_modules/
 coordination-server/dist/
 coordination-server/.env*
 coordination-server/logs/
+# Temporary: Exclude coordination-server TypeScript files to fix build
+# TODO: Remove this exclusion once express, ws, and cors dependencies are added
+coordination-server/src/
+coordination-server/**/*.ts
+coordination-server/**/*.js
 
 # GPU stack configurations
 gpustacks/configs/
