@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env.local
+.env.production
+.env.development
 
 # vercel
 .vercel
@@ -39,3 +42,62 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Coordination server
+coordination-server/node_modules/
+coordination-server/dist/
+coordination-server/.env*
+coordination-server/logs/
+
+# GPU node configurations
+gpu-nodes/configs/
+gpu-nodes/ssh-keys/
+gpu-nodes/*.key
+gpu-nodes/*.pem
+gpu-nodes/machine-*.conf
+
+# Sensitive configuration
+**/secrets/
+**/credentials/
+**/.ssh/
+*.key
+*.pem
+*.cert
+
+# API tokens and credentials
+digitalocean-token.txt
+do-api-key.json
+langflow-api-keys.json
+
+# Machine endpoints and IPs
+machine-endpoints.json
+cluster-config.json
+
+# Logs
+*.log
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
