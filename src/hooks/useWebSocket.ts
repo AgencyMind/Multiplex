@@ -276,7 +276,7 @@ function WorkflowCanvas() {
   );
 }
 */
-*/
+
 
 // Placeholder implementation
 export function useWebSocket(url: string = 'ws://localhost:3001') {
