@@ -1,10 +1,11 @@
 import React from 'react';
 
 const nodeTypes = [
-  { type: 'storyboard', symbol: '◢', tooltip: 'Storyboard', color: '#9c88ff' },
-  { type: 'keyframe', symbol: '◦', tooltip: 'Keyframe', color: '#64ffda' },
-  { type: 'semantic', symbol: '◈', tooltip: 'Semantic', color: '#00e5ff' },
-  { type: 'resource', symbol: '◼', tooltip: 'Resource', color: '#ffc947' },
+  { type: 'intents', symbol: '◢', tooltip: 'Intents', color: '#9c88ff' },
+  { type: 'comps', symbol: '◈', tooltip: 'Comps', color: '#ffc947' },
+  { type: 'genart', symbol: '◼', tooltip: 'Gen.Art', color: '#ff5722' },
+  { type: 'narrations', symbol: '◐', tooltip: 'Narrations', color: '#64ffda' },
+  { type: 'activitystreams', symbol: '◦', tooltip: 'Activity Streams', color: '#00e5ff' },
 ];
 
 export function IconPalette() {

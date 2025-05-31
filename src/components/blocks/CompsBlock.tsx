@@ -1,31 +1,31 @@
 import React from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
 
-interface SemanticData {
+interface CompsData {
   label: string;
-  type: 'character' | 'theme' | 'style' | 'mood' | 'reference';
+  type: 'lighting' | 'camera' | 'sound' | 'mood' | 'effects';
   connections?: number;
   strength?: number;
 }
 
-export function SemanticBlock({ data }: NodeProps<SemanticData>) {
+export function CompsBlock({ data }: NodeProps<CompsData>) {
   const typeStyles = {
-    character: { color: '#00e5ff', accent: 'rgba(0,229,255,0.2)' },
-    theme: { color: '#9c88ff', accent: 'rgba(156,136,255,0.2)' },
-    style: { color: '#ff5722', accent: 'rgba(255,87,34,0.2)' },
+    lighting: { color: '#ffc947', accent: 'rgba(255,201,71,0.2)' },
+    camera: { color: '#00e5ff', accent: 'rgba(0,229,255,0.2)' },
+    sound: { color: '#9c88ff', accent: 'rgba(156,136,255,0.2)' },
     mood: { color: '#64ffda', accent: 'rgba(100,255,218,0.2)' },
-    reference: { color: '#ffc947', accent: 'rgba(255,201,71,0.2)' },
+    effects: { color: '#ff5722', accent: 'rgba(255,87,34,0.2)' },
   };
 
-  const style = typeStyles[data.type] || typeStyles.reference;
+  const style = typeStyles[data.type] || typeStyles.mood;
 
   return (
     <div className="relative">
-      {/* Multiple connection handles for semantic relationships */}
+      {/* Multiple connection handles for complement relationships */}
       <Handle 
         type="target" 
         position={Position.Top}
-        id="semantic-in-1"
+        id="comps-in-1"
         className="!bg-transparent !border-0 !w-2 !h-2 !rounded-full"
         style={{
           background: `radial-gradient(circle, ${style.color} 0%, ${style.color}60 70%, transparent 100%)`,
@@ -35,7 +35,7 @@ export function SemanticBlock({ data }: NodeProps<SemanticData>) {
       <Handle 
         type="target" 
         position={Position.Top}
-        id="semantic-in-2"
+        id="comps-in-2"
         className="!bg-transparent !border-0 !w-2 !h-2 !rounded-full"
         style={{
           background: `radial-gradient(circle, ${style.color} 0%, ${style.color}60 70%, transparent 100%)`,
@@ -120,7 +120,7 @@ export function SemanticBlock({ data }: NodeProps<SemanticData>) {
       <Handle 
         type="source" 
         position={Position.Bottom}
-        id="semantic-out-1"
+        id="comps-out-1"
         className="!bg-transparent !border-0 !w-2 !h-2 !rounded-full"
         style={{
           background: `radial-gradient(circle, ${style.color} 0%, ${style.color}60 70%, transparent 100%)`,
@@ -130,7 +130,7 @@ export function SemanticBlock({ data }: NodeProps<SemanticData>) {
       <Handle 
         type="source" 
         position={Position.Bottom}
-        id="semantic-out-2"
+        id="comps-out-2"
         className="!bg-transparent !border-0 !w-2 !h-2 !rounded-full"
         style={{
           background: `radial-gradient(circle, ${style.color} 0%, ${style.color}60 70%, transparent 100%)`,

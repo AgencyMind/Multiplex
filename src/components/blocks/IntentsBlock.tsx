@@ -1,7 +1,7 @@
 import React from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
 
-interface StoryboardData {
+interface IntentsData {
   label: string;
   sceneNumber?: number;
   duration?: number;
@@ -10,7 +10,7 @@ interface StoryboardData {
   status?: 'idle' | 'generating' | 'complete' | 'error';
 }
 
-export function StoryboardBlock({ data }: NodeProps<StoryboardData>) {
+export function IntentsBlock({ data }: NodeProps<IntentsData>) {
   const statusGlow = {
     idle: '0 0 20px rgba(156, 136, 255, 0.15)',
     generating: '0 0 25px rgba(0, 229, 255, 0.3)',

@@ -15,25 +15,27 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 
 import { 
-  StoryboardBlock,
-  KeyframeBlock,
-  SemanticBlock,
-  ResourceBlock
+  IntentsBlock,
+  CompsBlock,
+  GenArtBlock,
+  NarrationsBlock,
+  ActivityStreamsBlock
 } from './blocks';
 import { NodeData } from '@/types/workflow';
 
 const nodeTypes = {
-  storyboard: StoryboardBlock,
-  keyframe: KeyframeBlock,
-  semantic: SemanticBlock,
-  resource: ResourceBlock,
+  intents: IntentsBlock,
+  comps: CompsBlock,
+  genart: GenArtBlock,
+  narrations: NarrationsBlock,
+  activitystreams: ActivityStreamsBlock,
 };
 
 // Pre-populated sample nodes
 const initialNodes: Node[] = [
   {
     id: '1',
-    type: 'storyboard',
+    type: 'intents',
     position: { x: 200, y: 100 },
     data: { 
       label: 'Character enters room',
@@ -45,7 +47,7 @@ const initialNodes: Node[] = [
   },
   {
     id: '2',
-    type: 'storyboard',
+    type: 'intents',
     position: { x: 520, y: 100 },
     data: { 
       label: 'Close-up reaction',
@@ -57,75 +59,59 @@ const initialNodes: Node[] = [
   },
   {
     id: '3',
-    type: 'semantic',
+    type: 'comps',
     position: { x: 200, y: 320 },
     data: { 
-      label: 'Mysterious Atmosphere',
-      type: 'mood',
-      connections: 3,
+      label: 'Dim Lighting',
+      type: 'lighting',
+      connections: 2,
       strength: 0.8
     },
   },
   {
     id: '4',
-    type: 'semantic',
+    type: 'comps',
     position: { x: 380, y: 320 },
     data: { 
-      label: 'Protagonist',
-      type: 'character',
-      connections: 5,
-      strength: 1.0
+      label: 'Low Camera Angle',
+      type: 'camera',
+      connections: 1,
+      strength: 0.6
     },
   },
   {
     id: '5',
-    type: 'keyframe',
-    position: { x: 120, y: 180 },
+    type: 'genart',
+    position: { x: 120, y: 500 },
     data: { 
-      label: 'Door Open',
-      timestamp: 1.2,
-      property: 'rotation',
-      value: '45deg',
-      interpolation: 'bezier'
+      label: 'Generated Scene',
+      type: 'image',
+      status: 'complete',
+      url: 'generated-room-scene.jpg'
     },
   },
   {
     id: '6',
-    type: 'keyframe',
-    position: { x: 280, y: 180 },
+    type: 'narrations',
+    position: { x: 400, y: 500 },
     data: { 
-      label: 'Step Forward',
-      timestamp: 2.8,
-      property: 'transform',
-      value: 'translateX(20px)',
-      interpolation: 'bezier'
+      label: 'Scene Description',
+      text: 'A mysterious figure approaches the weathered door, hand trembling as shadows dance across the threshold.',
+      hasImage: true
     },
   },
   {
     id: '7',
-    type: 'resource',
+    type: 'activitystreams',
     position: { x: 750, y: 120 },
     data: { 
-      label: 'Machine 1',
-      machineId: 'M1-I2V',
-      gpuLoad: 0.85,
-      memoryUsage: 0.72,
-      activeModel: 'Wan2.1-14B',
-      queueLength: 2,
-      status: 'busy'
-    },
-  },
-  {
-    id: '8',
-    type: 'resource',
-    position: { x: 750, y: 260 },
-    data: { 
-      label: 'Machine 2',
-      machineId: 'M2-IMG',
-      gpuLoad: 0.45,
-      memoryUsage: 0.38,
-      activeModel: 'Flux.1-dev',
-      status: 'online'
+      label: 'GPU Cluster Status',
+      activities: [
+        { source: 'M1-I2V', message: 'Wan2.1 processing frame 24/120', timestamp: Date.now() },
+        { source: 'M2-IMG', message: 'Flux generation complete', timestamp: Date.now() - 5000 },
+        { source: 'M4-R1', message: 'DeepSeek analyzing scene', timestamp: Date.now() - 10000 },
+      ],
+      overallLoad: 0.73
     },
   },
 ];
