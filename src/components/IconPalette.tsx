@@ -1,16 +1,10 @@
 import React from 'react';
 
 const nodeTypes = [
-  { type: 'intent', icon: '🎯', tooltip: 'Intent Block', color: '#00e5ff' },
-  { type: 'comp-logic', icon: '⚡', tooltip: 'Logic Complement', color: '#ffc947' },
-  { type: 'comp-data', icon: '📊', tooltip: 'Data Complement', color: '#ffc947' },
-  { type: 'comp-transform', icon: '🔄', tooltip: 'Transform Complement', color: '#ffc947' },
-  { type: 'genart-image', icon: '🖼️', tooltip: 'Generated Image', color: '#ff5722' },
-  { type: 'genart-video', icon: '🎬', tooltip: 'Generated Video', color: '#ff5722' },
-  { type: 'genart-audio', icon: '🎵', tooltip: 'Generated Audio', color: '#ff5722' },
-  { type: 'activity', icon: '📡', tooltip: 'Activity Stream', color: '#64ffda' },
-  { type: 'narration', icon: '💭', tooltip: 'Narration', color: '#9c88ff' },
-  { type: 'visual-narration', icon: '🎨', tooltip: 'Visual Narration', color: '#9c88ff' },
+  { type: 'storyboard', symbol: '◢', tooltip: 'Storyboard', color: '#9c88ff' },
+  { type: 'keyframe', symbol: '◦', tooltip: 'Keyframe', color: '#64ffda' },
+  { type: 'semantic', symbol: '◈', tooltip: 'Semantic', color: '#00e5ff' },
+  { type: 'resource', symbol: '◼', tooltip: 'Resource', color: '#ffc947' },
 ];
 
 export function IconPalette() {
@@ -20,7 +14,7 @@ export function IconPalette() {
   };
 
   return (
-    <div className="h-full py-4 flex flex-col items-center gap-3">
+    <div className="h-full py-6 flex flex-col items-center gap-4">
       {nodeTypes.map((node) => (
         <div
           key={node.type}
@@ -29,23 +23,41 @@ export function IconPalette() {
           onDragStart={(e) => onDragStart(e, node.type)}
         >
           <div 
-            className="w-9 h-9 flex items-center justify-center rounded cursor-move
-                     text-[#6b7280] hover:text-[#f8f9fa] transition-all duration-200
-                     hover:bg-[#1a1a1c] group-hover:shadow-lg"
+            className="w-10 h-10 flex items-center justify-center cursor-move
+                     transition-all duration-300 hover:scale-110"
             style={{ 
-              '--hover-color': node.color 
-            } as React.CSSProperties}
+              background: `linear-gradient(135deg, rgba(20,20,22,0.9) 0%, rgba(26,26,28,0.7) 100%)`,
+              border: `1px solid ${node.color}40`,
+              borderRadius: '6px',
+              boxShadow: `0 0 10px ${node.color}20, 0 2px 8px rgba(0,0,0,0.4)`,
+            }}
           >
-            <span className="text-lg select-none group-hover:scale-110 transition-transform">
-              {node.icon}
+            <span 
+              className="text-sm select-none transition-all duration-300 group-hover:scale-110"
+              style={{ 
+                color: node.color,
+                fontFamily: 'Space Grotesk',
+                fontWeight: 500
+              }}
+            >
+              {node.symbol}
             </span>
           </div>
           
           {/* Tooltip */}
-          <div className="absolute left-full ml-2 px-2 py-1 bg-[#1a1a1c] border border-[#252527] 
-                        rounded text-xs text-[#9ca3af] whitespace-nowrap opacity-0 
-                        group-hover:opacity-100 transition-opacity duration-200 z-10
-                        pointer-events-none">
+          <div 
+            className="absolute left-full ml-3 px-2 py-1 rounded text-xs whitespace-nowrap 
+                     opacity-0 group-hover:opacity-100 transition-all duration-200 z-10
+                     pointer-events-none"
+            style={{
+              background: 'linear-gradient(135deg, rgba(20,20,22,0.95) 0%, rgba(26,26,28,0.95) 100%)',
+              border: '1px solid rgba(37,37,39,0.8)',
+              color: 'rgba(156,163,175,0.9)',
+              fontFamily: 'Plus Jakarta Sans',
+              fontWeight: 400,
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+            }}
+          >
             {node.tooltip}
           </div>
         </div>

@@ -15,89 +15,150 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 
 import { 
-  IntentNode, 
-  CompNode, 
-  GenArtNode,
-  ActivityStreamNode,
-  NarrationNode,
-  VisualNarrationNode 
-} from './nodes';
+  StoryboardBlock,
+  KeyframeBlock,
+  SemanticBlock,
+  ResourceBlock
+} from './blocks';
 import { NodeData } from '@/types/workflow';
 
 const nodeTypes = {
-  intent: IntentNode,
-  'comp-logic': CompNode,
-  'comp-data': CompNode,
-  'comp-transform': CompNode,
-  'genart-image': GenArtNode,
-  'genart-video': GenArtNode,
-  'genart-audio': GenArtNode,
-  activity: ActivityStreamNode,
-  narration: NarrationNode,
-  'visual-narration': VisualNarrationNode,
+  storyboard: StoryboardBlock,
+  keyframe: KeyframeBlock,
+  semantic: SemanticBlock,
+  resource: ResourceBlock,
 };
 
 // Pre-populated sample nodes
-const initialNodes: Node<NodeData>[] = [
+const initialNodes: Node[] = [
   {
     id: '1',
-    type: 'intent',
-    position: { x: 300, y: 100 },
+    type: 'storyboard',
+    position: { x: 200, y: 100 },
     data: { 
-      label: 'Character enters room', 
-      type: 'intent',
-      status: 'processing'
+      label: 'Character enters room',
+      sceneNumber: 1,
+      duration: 5.2,
+      description: 'Wide shot of character opening creaking door, revealing dimly lit interior',
+      status: 'generating'
     },
   },
   {
     id: '2',
-    type: 'activity',
-    position: { x: 650, y: 80 },
+    type: 'storyboard',
+    position: { x: 520, y: 100 },
     data: { 
-      label: 'GPU Activity Stream',
-      type: 'activity',
-      activities: [
-        { source: 'Machine 1', message: 'I2V processing frame 24/120', timestamp: Date.now() },
-        { source: 'Machine 2', message: 'Image generation complete', timestamp: Date.now() - 5000 },
-        { source: 'Machine 4', message: 'DeepSeek R1 analyzing scene', timestamp: Date.now() - 10000 },
-      ]
+      label: 'Close-up reaction',
+      sceneNumber: 2,
+      duration: 3.8,
+      description: 'Character\'s face shows surprise and caution',
+      status: 'complete'
     },
   },
   {
     id: '3',
-    type: 'narration',
-    position: { x: 300, y: 300 },
+    type: 'semantic',
+    position: { x: 200, y: 320 },
     data: { 
-      label: 'Scene Narration',
-      type: 'narration',
-      content: 'The door creaks open slowly, revealing a dimly lit room. Shadows dance across weathered walls as footsteps echo on the wooden floor...'
+      label: 'Mysterious Atmosphere',
+      type: 'mood',
+      connections: 3,
+      strength: 0.8
     },
   },
   {
     id: '4',
-    type: 'visual-narration',
-    position: { x: 650, y: 320 },
+    type: 'semantic',
+    position: { x: 380, y: 320 },
     data: { 
-      label: 'Generated Scene',
-      type: 'visual-narration',
-      imageUrl: '/api/placeholder/300/200',
-      prompt: 'Dimly lit room with shadows on weathered walls'
+      label: 'Protagonist',
+      type: 'character',
+      connections: 5,
+      strength: 1.0
     },
   },
   {
     id: '5',
-    type: 'comp-logic',
-    position: { x: 480, y: 150 },
+    type: 'keyframe',
+    position: { x: 120, y: 180 },
     data: { 
-      label: 'Lighting',
-      type: 'comp',
-      subType: 'logic'
+      label: 'Door Open',
+      timestamp: 1.2,
+      property: 'rotation',
+      value: '45deg',
+      interpolation: 'bezier'
+    },
+  },
+  {
+    id: '6',
+    type: 'keyframe',
+    position: { x: 280, y: 180 },
+    data: { 
+      label: 'Step Forward',
+      timestamp: 2.8,
+      property: 'transform',
+      value: 'translateX(20px)',
+      interpolation: 'bezier'
+    },
+  },
+  {
+    id: '7',
+    type: 'resource',
+    position: { x: 750, y: 120 },
+    data: { 
+      label: 'Machine 1',
+      machineId: 'M1-I2V',
+      gpuLoad: 0.85,
+      memoryUsage: 0.72,
+      activeModel: 'Wan2.1-14B',
+      queueLength: 2,
+      status: 'busy'
+    },
+  },
+  {
+    id: '8',
+    type: 'resource',
+    position: { x: 750, y: 260 },
+    data: { 
+      label: 'Machine 2',
+      machineId: 'M2-IMG',
+      gpuLoad: 0.45,
+      memoryUsage: 0.38,
+      activeModel: 'Flux.1-dev',
+      status: 'online'
     },
   },
 ];
 
 const initialEdges: Edge[] = [
-  { id: 'e1-5', source: '1', target: '5', animated: true },
+  { 
+    id: 'e1-5', 
+    source: '1', 
+    target: '5', 
+    animated: true,
+    style: { stroke: 'rgba(156,136,255,0.4)', strokeWidth: 2 }
+  },
+  { 
+    id: 'e5-6', 
+    source: '5', 
+    target: '6', 
+    animated: true,
+    style: { stroke: 'rgba(100,255,218,0.4)', strokeWidth: 2 }
+  },
+  { 
+    id: 'e1-3', 
+    source: '1', 
+    target: '3', 
+    animated: false,
+    style: { stroke: 'rgba(156,136,255,0.2)', strokeWidth: 1 }
+  },
+  { 
+    id: 'e2-4', 
+    source: '2', 
+    target: '4', 
+    animated: false,
+    style: { stroke: 'rgba(0,229,255,0.2)', strokeWidth: 1 }
+  },
 ];
 
 export function WorkflowCanvas() {
